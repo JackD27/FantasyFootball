@@ -30,35 +30,35 @@ prob += pulp.lpSum([draft[n, p]*costs[n,p] for (n, p) in legal_assignments]) <= 
 
 
 
-# pick 1 CPT
+# pick 1 RB
 prob += pulp.lpSum([draft[n, p] for (n, p) in legal_assignments if p == 'RB']) == 2
 
-# pick 1 CPT
+# pick 2 WR
 prob += pulp.lpSum([draft[n, p] for (n, p) in legal_assignments if p == 'WR']) == 2
 
-# pick 5 UTIL
+# pick 1 QB
 prob += pulp.lpSum([draft[n, p] for (n, p) in legal_assignments if p == 'QB']) == 1
 
-# pick 1 CPT
+# pick 1 TE
 prob += pulp.lpSum([draft[n, p] for (n, p) in legal_assignments if p == 'TE']) == 1
 
-# pick 1 CPT
+# pick 1 DEF
 prob += pulp.lpSum([draft[n, p] for (n, p) in legal_assignments if p == 'DEF']) == 1
 
 # pick 1 FLEX
 prob += pulp.lpSum([draft[n, p] for (n, p) in legal_assignments if p == 'FLEX']) == 1
 
-# pick 1 CPT
+# pick 1 K
 prob += pulp.lpSum([draft[n, p] for (n, p) in legal_assignments if p == 'K']) == 1
 
 
-removeNames = []
+removeNames = [] #Add names that were already picked from the draft that aren't on your team.
 
 for names in removeNames:
     prob += pulp.lpSum([draft[n, p] for (n, p) in legal_assignments if n == names]) == 0
 
 
-addedNames = []
+addedNames = [] #Add names that are currently on your team.
 for names in addedNames:
     prob += pulp.lpSum([draft[n, p] for (n, p) in legal_assignments if n == names]) == 1
 
